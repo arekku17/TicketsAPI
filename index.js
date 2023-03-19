@@ -1,8 +1,8 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const boletoRoutes = require('./routes/boleto');
-const initialSetup = require('./libs/initialSetup');
-const rutaAuth = require('./routes/auth');
+const boletoRoutes = require('./src/routes/boleto');
+const initialSetup = require('./src/libs/initialSetup');
+const rutaAuth = require('./src/routes/auth');
+const morgan = require('morgan');
 
 
 require("dotenv").config();
@@ -12,6 +12,16 @@ const app = express();
 
 
 const port = process.env.PORT || 9000;
+
+// Importar conexión mongoDB
+const archivoBD = require('./conection');
+
+app.use(morgan('dev'));
+
+//Importar body parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:'true'}));
 
 // Middleware
 app.use(express.json());
@@ -28,10 +38,7 @@ initialSetup.createRoles();
 
 // MongoDB Conexión
 
-mongoose.connect(
-    process.env.MONGODB_URI
-).then(() => console.log("Conexión a MongoDB Atlas"))
-.catch((err) => console.log(err));
+
 
 
 app.listen(port, () => console.log('Server prendido en el puerto ', port))
