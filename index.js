@@ -3,6 +3,7 @@ const boletoRoutes = require('./src/routes/boleto');
 const initialSetup = require('./src/libs/initialSetup');
 const rutaAuth = require('./src/routes/auth');
 const morgan = require('morgan');
+const cors = require('cors')
 
 
 require("dotenv").config();
@@ -11,11 +12,12 @@ require("dotenv").config();
 const app = express();
 
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 5000;
 
 // Importar conexión mongoDB
 const archivoBD = require('./conection');
 
+app.use(cors());
 app.use(morgan('dev'));
 
 //Importar body parser
