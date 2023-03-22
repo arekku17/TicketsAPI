@@ -2,6 +2,7 @@ const express = require('express');
 const boletoRoutes = require('./src/routes/boleto');
 const initialSetup = require('./src/libs/initialSetup');
 const rutaAuth = require('./src/routes/auth');
+const rutaUser = require('./src/routes/user')
 const morgan = require('morgan');
 const cors = require('cors')
 
@@ -29,6 +30,7 @@ app.use(bodyParser.urlencoded({extended:'true'}));
 app.use(express.json());
 app.use('/api/boleto', boletoRoutes); 
 app.use('/api/auth', rutaAuth);
+app.use('/api/user', rutaUser);
 
 // RUTAS
 app.get("/", (req, res) => {
