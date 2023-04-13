@@ -25,6 +25,10 @@ const ticketSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    pagado: {
+        type: Number,
+        required: true
+    },
     vendedor: {
         type: String,
         required: true

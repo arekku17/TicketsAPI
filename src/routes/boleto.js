@@ -18,7 +18,8 @@ router.post("/crear", [authJwt.verifyToken, authJwt.isModerador], async (req, re
         apellidos,
         edad,
         tipoBoleto,
-        costo
+        costo,
+        pagado
     } = req.body;
 
     const fechaCompra = new Date();
@@ -30,6 +31,7 @@ router.post("/crear", [authJwt.verifyToken, authJwt.isModerador], async (req, re
         tipoBoleto: tipoBoleto,
         fechaCompra: fechaCompra,
         costo: costo,
+        pagado: pagado,
         estado: true,
         vendedor: userFound.nombre
     });
