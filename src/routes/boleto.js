@@ -57,10 +57,22 @@ router.get("/:id", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
         .catch((error) => res.json({message: error}))
 })
  
-router.put("/:id", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
+// CAMBIAR ESTADO A INACTIVO
+router.put("/estado/:id", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
     const { id } = req.params;
     ticketSchema
         .updateOne({_id: id}, {estado: false})
+        .then((data) => res.json(data))
+        .catch((error) => res.json({message: error}))
+})
+
+
+// CAMBIAR PAGO
+router.put("/pago/:id", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
+    const { id} = req.params;
+    const { pago } = req.body;
+    ticketSchema
+        .updateOne({_id: id}, {pagado: pago})
         .then((data) => res.json(data))
         .catch((error) => res.json({message: error}))
 })
