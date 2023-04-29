@@ -30,7 +30,7 @@ router.post('/signUP', [
     .then(data => {
         console.log(data);
         const token = jwt.sign({id: data._id}, process.env.JWT_KEY, {
-            expiresIn: '1d'
+            expiresIn: '30d'
         })
         res.json({token})
         
