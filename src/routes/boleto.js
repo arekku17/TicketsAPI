@@ -56,6 +56,14 @@ router.get("/:id", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
         .then((data) => res.json(data))
         .catch((error) => res.json({message: error}))
 })
+
+router.get("/usuario/:vendedor", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
+    const { vendedor } = req.params;
+    ticketSchema
+        .find({vendedor: vendedor})
+        .then((data) => res.json(data))
+        .catch((error) => res.json({message: error}))
+})
  
 // CAMBIAR ESTADO A INACTIVO
 router.put("/estado/:id", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
