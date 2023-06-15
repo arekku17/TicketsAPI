@@ -36,6 +36,15 @@ const ticketSchema = mongoose.Schema({
     estado: {
         type: Boolean,
         required: true
+    },
+    asistencia: {
+        type: [
+            {
+                fecha: {type: Date, required: true},
+                asistio: {type: Boolean, default: false}
+            }
+        ],
+        required: true
     }
 });
 
