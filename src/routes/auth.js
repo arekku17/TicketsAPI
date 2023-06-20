@@ -9,8 +9,8 @@ const verify = require('../middlewares/verifySignup');
 const authJwt = require('../middlewares/authJwt');
 
 router.post('/signUP', [
-    authJwt.verifyToken,
-    authJwt.isAdmin,
+    // authJwt.verifyToken,
+    // authJwt.isAdmin,
     verify.checkDuplicateUser,
     verify.checkRolesExisted
     ], async (req, res) => {

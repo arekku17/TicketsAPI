@@ -9,6 +9,12 @@ const ticketSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+    },
+    carrera: {
+        type: String
+    },
     edad: {
         type: Number,
         required: true
