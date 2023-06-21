@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+const aggregatePaginate = require("mongoose-aggregate-paginate-v2");
+
 
 const ticketSchema = mongoose.Schema({
     nombres: {
@@ -16,8 +19,7 @@ const ticketSchema = mongoose.Schema({
         type: String
     },
     edad: {
-        type: Number,
-        required: true
+        type: Number
     },
     tipoBoleto: {
         type: String,
@@ -43,6 +45,9 @@ const ticketSchema = mongoose.Schema({
         type: Boolean,
         required: true
     },
+    semestre: {
+        type: String
+    },
     asistencia: {
         type: [
             {
@@ -53,5 +58,8 @@ const ticketSchema = mongoose.Schema({
         required: true
     }
 });
+
+ticketSchema.plugin(mongoosePaginate);
+ticketSchema.plugin(aggregatePaginate);
 
 module.exports = mongoose.model('Ticket', ticketSchema);
