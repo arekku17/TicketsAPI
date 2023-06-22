@@ -4,10 +4,10 @@ const userSchema = require('../models/User');
 
 const authJwt = require('../middlewares/authJwt');
 
-router.get("/:id", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
+router.get("/:id", [authJwt.verifyToken], (req, res) => {
     const { id } = req.params;
     userSchema
-        .findById(id)
+        .findById(id).populate("roles")
         .then((data) => res.json(data))
         .catch((error) => res.json({message: error}))
 });

@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken")
 const authJwt = require('../middlewares/authJwt');
 
 // Crear ticket
-router.post("/crear", [authJwt.verifyToken, authJwt.isModerador], async (req, res) => {
+router.post("/crear", [authJwt.verifyToken], async (req, res) => {
 
     const token = req.headers["x-access-token"];
     const decoded = jwt.verify(token, process.env.JWT_KEY)
@@ -33,7 +33,7 @@ router.post("/crear", [authJwt.verifyToken, authJwt.isModerador], async (req, re
         costo,
         pagado,
         estado: true,
-        vendedor: userFound.nombre,
+        vendedor: userFound.username,
         asistencia,
         email,
         carrera,
@@ -109,7 +109,7 @@ router.get("/:id", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
         .catch((error) => res.json({ message: error }))
 })
 
-router.get("/usuario/:vendedor", [authJwt.verifyToken, authJwt.isModerador], (req, res) => {
+router.get("/usuario/:vendedor", [authJwt.verifyToken], (req, res) => {
     const limit = parseInt(req.query.limit, 10) || 10;
     const page = parseInt(req.query.page, 10) || 1;
     const nombres = req.query.nombre || "";

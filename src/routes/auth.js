@@ -9,6 +9,37 @@ const verify = require('../middlewares/verifySignup');
 const authJwt = require('../middlewares/authJwt');
 
 router.post('/signUP', [
+    verify.checkDuplicateUser,
+    verify.checkRolesExisted
+    ], async (req, res) => {
+    const { username, nombre, password} = req.body;
+
+    const newUser = new userSchema({
+        username,
+        nombre,
+        password: await userSchema.encryptPassword(password)
+    })
+
+    const role = await Role.findOne({name: "user"});
+    newUser.roles = [role._id];
+
+
+    const savedUser = await newUser.save()
+    .then(data => {
+        console.log(data);
+        const token = jwt.sign({id: data._id}, process.env.JWT_KEY, {
+            expiresIn: '30d'
+        })
+        res.json({token})
+        
+    })
+    .catch((err) => {
+        res.json(err);
+    });
+    
+})
+
+router.post('/moderador/signUP', [
     authJwt.verifyToken,
     authJwt.isAdmin,
     verify.checkDuplicateUser,

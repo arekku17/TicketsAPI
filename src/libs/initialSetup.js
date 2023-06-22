@@ -8,7 +8,8 @@ const createRoles = async () => {
 
         const values = await Promise.all([
             new roleSchema({ name: "moderator" }).save(),
-            new roleSchema({ name: "admin" }).save()
+            new roleSchema({ name: "admin" }).save(),
+            new roleSchema({ name: "user"}).save()
         ])
 
         console.log(values);

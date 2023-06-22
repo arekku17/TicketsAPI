@@ -7,7 +7,7 @@ const verifyToken = async (req, res, next) => {
     try {
         const token = req.headers["x-access-token"];
 
-        if (!token) return res.status(403).json({ message: "No token" })
+        if (!token) return res.status(403).json({ error: "No token" })
 
         const decoded = jwt.verify(token, process.env.JWT_KEY)
         req.userId = decoded.id;
@@ -15,7 +15,7 @@ const verifyToken = async (req, res, next) => {
         const userFound = await User.findById(decoded.id, { password: 0 });
 
 
-        if (!userFound) return res.status(404).json({ message: "no user found" });
+        if (!userFound) return res.status(404).json({ error: "no user found" });
 
         next();
     } catch (error) {
@@ -34,7 +34,7 @@ const isModerador = async (req, res, next) => {
         }
     }
 
-    return res.status(403).json({message: "No tienes permisos para acceder"});
+    return res.status(403).json({error: "No tienes permisos para acceder"});
 }
 
 const isAdmin = async (req, res, next) => {
@@ -48,7 +48,7 @@ const isAdmin = async (req, res, next) => {
         }
     }
 
-    return res.status(403).json({message: "No tienes permisos para acceder"});
+    return res.status(403).json({error: "No tienes permisos para acceder"});
 }
 
 module.exports = { verifyToken, isModerador, isAdmin};
